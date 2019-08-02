@@ -1,0 +1,24 @@
+.section-1{
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img{
+        width: 70px;
+        height: auto;
+    }
+
+    p{
+        max-width: 400px;
+        margin-top: 60px;
+        @include paragraphs;
+    }
+
+    @include responsive(mobile-sm){
+        p{
+            @include side_margins(10px);
+        }
+    }
+}

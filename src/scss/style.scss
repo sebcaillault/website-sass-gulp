@@ -1,0 +1,244 @@
+/* ************** 
+    Color scheme
+*************** */
+
+$colors: (black: #1a1a1a,
+    yellow: #ffe500,
+    grey: #f4f4f4,
+    white: #ffffff,
+    font: #707070);
+
+$fonts: (main: 'Raleway',
+    secondary: 'Montserrat'
+);
+
+/* ************** 
+    Mixins
+*************** */
+@mixin h2-format {
+    color: color(black);
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    font-size: 0.8em;
+    font-weight: normal;
+    margin: 30px 0;
+}
+
+@mixin paragraphs {
+    font-size: 0.6em;
+    line-height: 20px;
+    text-align: center;
+    color: color(font);
+}
+
+@mixin side_margins($margin) {
+    margin-left: $margin;
+    margin-right: $margin;
+}
+
+// responsive
+@mixin  responsive($device) {
+    @if $device == 'mobile' {
+        @media all and (max-width: 575px) { @content; }
+    }
+    @else if $device == 'mobile-sm' {
+        @media all and (max-width: 375px) { @content; }
+    } 
+    @else if $device == 'mobile-lg' {
+        @media all and (max-width: 768px) { @content; }
+    }
+    @else if $device == 'tablet' {
+        @media all and (max-width: 991px) { @content; }
+    }
+    @else if $device == 'laptop' {
+        @media all and (max-width: 1199px) { @content; }
+    }
+    @else if $device == 'desktop' {
+        @media all and (min-width: 1199px) { @content; }
+    }
+    
+}
+
+
+/* ************** 
+    Functions
+*************** */
+
+@function color($color) {
+    @return map-get($colors, $color);
+}
+
+@function font($font) {
+    @return map-get($fonts, $font);
+}
+
+/* ************** 
+      Global
+*************** */
+
+html,
+body {
+    margin: 0 auto;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: font(main), sans-serif;
+    box-sizing: border-box;
+    min-width: 300px;
+    max-width: 1600px;
+}
+
+p {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.container {
+    width: 75%;
+    margin: auto;
+}
+
+
+
+
+/* ************** 
+      LAYOUT
+*************** */
+
+section {
+    width: 100%;
+}
+
+.section-header{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    img{
+        width: 50px;
+        height: auto;
+        margin-top: 30px;
+    }
+
+    h2{
+        @include h2-format;
+    }
+
+    p {
+        width: 40%;
+        @include paragraphs;
+
+
+        @include responsive(tablet){
+            width: 60%;
+        }
+
+        @include responsive(mobile-lg){
+            width: 75%;
+        }
+
+        @include responsive(mobile-sm){
+            width: 90%;
+            margin: auto;
+        }
+    }
+}
+
+@import '_header';
+@import '_section1';
+@import '_section2';
+@import '_section3';
+@import '_section4';
+@import '_section5';
+@import '_section6';
+@import '_footer';
+
+
+/* ************** 
+      Components
+*************** */
+
+.btn {
+    display: block;
+    padding: 7px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 0;
+    font-family: font(main);
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.btn-yellow {
+    background: color(yellow);
+    border-color: color(yellow);
+    border: 0.5px solid color(yellow);
+    color: color(black);
+}
+
+.btn-yellow:hover {
+    background: color(black);
+    color: color(yellow);
+    border: 0.5px solid color(yellow);
+    transition-duration: 400ms;
+}
+
+.btn-dark {
+    background: color(black);
+    border: 1px solid color(yellow);
+    color: color(yellow);
+}
+
+
+/* ************** 
+      UX stuff
+*************** */
+
+.show-nav {
+    display: block;
+    animation: fadein 500ms ease-in-out forwards;
+}
+
+.hide-nav {
+    animation: fadeout 500ms ease-in-out forwards;
+}
+
+@keyframes fadein {
+    from {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    to {
+        width: 80vh;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        width: 80vh;
+        opacity: 1;
+    }
+
+    to {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        display: none;
+    }
+}
